@@ -1,3 +1,4 @@
+# I am using the SQlite(file base) database rather than MYSQL(serverbase) because SQlite donot need any instalation
 
 import sqlite3
 DB_name="JOHN_Project.db"
