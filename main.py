@@ -15,7 +15,7 @@ def display_task(task_info):
         print("No tasks found")
     else:
         for i, info in enumerate(task_info):
-            print(f"{i+1}. {info.detail} | due: {info.due_date} | priroty: {info.priroty} | catagory: {info.catagory} | completed: {info.completed}")
+            print(f"{i+1}. {info.detail} | due: {info.due_date} | priroty: {info.priroty} | catagory: {info.catagory} | completed: {info.complete}")
 
 
 
@@ -47,7 +47,8 @@ def main():
         elif(choose==3):
             task=data_base.get_task(user_ID)
             display_task(task)
-            index=int(input("inter index to update")) -1 
+            index=int(input("inter index to update")) -1
+            task_id=task[index].id
             data_base.delete_task(task_id)
             print("delete sucessfully")
         elif(choose==6):
@@ -70,7 +71,7 @@ def main():
             task=data_base.get_task(user_ID)
             display_task(task)
             index=int (input("Enter the index to update the task"))-1
-            key=input("Field to update (details/due_date/category/priority/completed):").strip()
+            key=input("Field to update (detail/due_date/category/priority/completed):").strip()
             value=input("New value").strip()
             task_id=task[index].id
             data_base.update_task(task_id,**{key:value})
