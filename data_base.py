@@ -51,7 +51,7 @@ def add_user( user_id,Password):
         conn.commit()
         conn.close()
 
-        
+# this a method that is use to add task from the user     
 def add_task(user_id, task):
         conn=sqlite3.connect(DB_name)
         cursor=conn.cursor()
@@ -69,15 +69,16 @@ def add_task(user_id, task):
         conn.commit()    
         conn.close()
 
-
+# this is the function that is used to update task 
 def update_task(task_id, **dics):
             conn = sqlite3.connect(DB_name)
             cursor=conn.cursor()
+            # this for loop add task in dic 
             for key, value in dics.items():
                 cursor.execute(f"UPDATE task SET {key}=? where id =?",(value, task_id))
             conn.commit()
             conn.close()
-
+#this is the method that is used to delete the task ( row ) by taking id as input
 def delete_task(task_id):
             conn = sqlite3.connect(DB_name)
 
@@ -86,8 +87,7 @@ def delete_task(task_id):
             conn.commit()
             conn.close()       
             
-
-        
+# this is the method that is used to show all the data of the file in the screen     
 def get_task(user_id):
         from Data import security_task
         conn= sqlite3.connect(DB_name)
@@ -100,8 +100,9 @@ def get_task(user_id):
             FROM task
             WHERE user_id= ?""",(user_id,))
         rows = cursor.fetchall()
+        #this is used to fetch all data of rows at once
         conn.close()
-
+        # for loop for check the data of row
         for row in rows:
             task= security_task(
                 detail=row[1],
@@ -115,7 +116,7 @@ def get_task(user_id):
         return tasks
 
         
-
+# this is a function that is used to search the whole row by using the keyword that user enters
 def search_task(user_id, keyword):
     from Data import security_task
     conn= sqlite3.connect(DB_name)

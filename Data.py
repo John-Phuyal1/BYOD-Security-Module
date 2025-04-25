@@ -52,6 +52,7 @@ class user:
 
 
         }
+    # this is A static function 
     @staticmethod
     def from_dic(data):
         user = user(data["user_id"], data.get("password"))
