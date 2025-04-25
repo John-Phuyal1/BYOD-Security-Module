@@ -82,7 +82,7 @@ def delete_task(task_id):
             conn = sqlite3.connect(DB_name)
 
             cursor= conn.cursor()
-            cursor.execute(" DELETE FROM task WHERE id=?", (task_id))
+            cursor.execute(" DELETE FROM task WHERE id=?", (task_id,))# changing task_id into tuple by giving , at last
             conn.commit()
             conn.close()       
             

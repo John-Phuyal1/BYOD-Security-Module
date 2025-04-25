@@ -47,10 +47,16 @@ def main():
         elif(choose==3):
             task=data_base.get_task(user_ID)
             display_task(task)
-            index=int(input("inter index to update")) -1
-            task_id=task[index].id
-            data_base.delete_task(task_id)
-            print("delete sucessfully")
+            try:
+                index=int(input("inter index to update")) -1
+                if(index>0 and index<len(task)):
+                    task_id=task[index].id
+                    data_base.delete_task(task_id)
+                    print("delete sucessfully")
+                else:
+                    print("please enter the valid index")
+            except ValueError:
+                print("please enter valid number")
         elif(choose==6):
             print("good__Bye::")
             break
@@ -69,6 +75,7 @@ def main():
             display_task(task)
         elif(choose==2):
             task=data_base.get_task(user_ID)
+            
             display_task(task)
             index=int (input("Enter the index to update the task"))-1
             key=input("Field to update (detail/due_date/category/priority/completed):").strip()
