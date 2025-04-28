@@ -5,12 +5,13 @@ import data_base
 def get_task_input():
     detail=input("Enter task detail:")
     due_date=input("Enter the due date in the form of dd/mm/yy")    
-    catagory=input("Enter the catagory of task")
+    
     priroty=input("Enter the priority like A, B, C")
+    catagory=input("Enter the catagory of task")
     complete=input("complete or not")
     return security_task(detail,due_date,priroty,catagory,complete)
     
-
+#this is fuctunction that is used to display the task on screen 
 def display_task(task_info):
     if not task_info:
         print("No tasks found")
@@ -35,7 +36,7 @@ def main():
 
     while True:
          # lopping for infinite time, It will excute unless we broke it out
-        print("\nMenu\n1 for add_task\n2 for update_task\n3 for delete_task\n4 for gate_task\n5 for search_task\n6 for exist")
+        print("\nMenu\n1 for add_task\n2 for update_task\n3 for delete_task\n4 for view_task\n5 for search_task\n6 for exist")
         #testing the input is integer or not
         try:
             choose=int(input("Choose from 1-6"))
@@ -57,7 +58,7 @@ def main():
             #if user enter other charater rather than integer, this will help 
             try:
                 index=int(input("inter index to update")) -1
-                if(index>0 and index<len(task)):
+                if(index>=0 and index<len(task)):
                     task_id=task[index].id
                     data_base.delete_task(task_id)
                     print("delete sucessfully")
@@ -69,11 +70,12 @@ def main():
             print("good__Bye::")
             break
         elif(choose==5):
+            
             keyword=input("Enter the keyword to search data")
             if keyword.strip()!="":
                 #.strip is the function that is used to remove the extra spaces from the string
-                keyword=keyword
-                task=data_base.search_task(user_ID,keyword)
+                keyword=keyword.strip()
+                task=data_base.search_task(keyword)
                 display_task(task)
 
             else:
@@ -90,7 +92,7 @@ def main():
             display_task(task)
             index=int (input("Enter the index to update the task"))-1
             #finding index where to update data
-            key=input("Field to update (detail/due_date/category/priority/completed):").strip()
+            key=input("Field to update (detail/due_date/priority/category/completed):").strip()
             # chossing which part to update
             value=input("New value").strip()
             # tkaing new value

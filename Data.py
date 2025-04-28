@@ -6,7 +6,7 @@ class security_task:
 
 
     #this is a counstructor for this class 
-    def __init__(self,detail,due_date,catagory,priroty,complete):
+    def __init__(self,detail,due_date,priroty,catagory,complete):
         # creating the obj atributies
         self.detail=detail
         self.due_date=due_date # formate dd/mm/yy

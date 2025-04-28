@@ -5,8 +5,10 @@ DB_name="JOHN_Project.db"
 
 def init_db():
     
-    conn=sqlite3.connect(DB_name) # It connect the programm ti the file name DB_name, if file is not exist then it creat that file
-    cursor =conn.cursor() # its creates the cursor object which allow us to exsucute the queries
+    conn=sqlite3.connect(DB_name)
+     # It connect the programm ti the file name DB_name, if file is not exist then it creat that file
+    cursor =conn.cursor()
+     # its creates the cursor object which allow us to exsucute the queries
     # creat the user table
     cursor.execute(""" 
         CREATE TABLE IF NOT EXISTS user (
@@ -40,7 +42,7 @@ def init_db():
     conn.close() # to colse the database connection
 
 
-    # this function is use to interst data into user table id there is already data then it ingore the entry
+    # this function is use to enter data into user table id there is already data then it ingore the entry
 def add_user( user_id,Password):
         conn=sqlite3.connect(DB_name)
         cursor=conn.cursor()
@@ -69,7 +71,6 @@ def add_task(user_id, task):
         conn.commit()    
         conn.close()
 
-# this is the function that is used to update task 
 def update_task(task_id, **dics):
             conn = sqlite3.connect(DB_name)
             cursor=conn.cursor()
@@ -117,12 +118,13 @@ def get_task(user_id):
 
         
 # this is a function that is used to search the whole row by using the keyword that user enters
-def search_task(user_id, keyword):
+def search_task(keyword):
     from Data import security_task
     conn= sqlite3.connect(DB_name)
     cursor =conn.cursor()
     cursor.execute(
-        """ SElECT * FROM task WHERE user_id=? AND (detail LIKE ? OR catagory LIKE ?)""", (user_id,f"%{keyword}%",f"%{keyword}%")
+        """ SElECT id,detail,due_date,priroty,catagory,complete
+            FROM task WHERE (detail LIKE ? OR catagory LIKE ?)""", (f"%{keyword}%",f"%{keyword}%")
         
     )
     rows=cursor.fetchall()
@@ -130,11 +132,11 @@ def search_task(user_id, keyword):
     to_show=[]
     for row in rows:
         to_do= security_task(
-            detail=row[2],
-            due_date=row[3],
-            priroty=row[4],
-            catagory=row[5],
-            complete=row[6]
+            detail=row[1],
+            due_date=row[2],
+            priroty=row[3],
+            catagory=row[4],
+            complete=row[5]
         )
         to_do.id=row[0]
         to_show.append(to_do)
